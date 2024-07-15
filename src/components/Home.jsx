@@ -1,8 +1,11 @@
+import { useNavigate } from "react-router";
 
 const Home = () => {
+    const navigate = useNavigate()
+    navigate('/login')
     return (
         <div>
-            <h2 className="text-2xl">This is home</h2>
+            
         </div>
     );
 };

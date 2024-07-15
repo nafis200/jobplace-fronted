@@ -1,5 +1,3 @@
-// import { useContext } from "react";
-// import { AuthContext } from "./components/Authprovider";
 import useAuth from "./useAuth";
 import { FaGoogle } from "react-icons/fa";
 import { useState } from "react";
@@ -9,7 +7,6 @@ import { NavLink } from "react-router-dom";
 import useAxiospublic from "./hooks/useAxiospublic";
 import Swal from 'sweetalert2'
 const Login = () => {
-  // const {signInUser} = useContext(AuthContext)
   const axiosPublic = useAxiospublic()
   const [errors,setErrors] = useState("")
   const { signInUser, signIngoogle } = useAuth();
@@ -107,25 +104,6 @@ const Login = () => {
                 <NavLink to="/signup">Register</NavLink>
               </div>
             </form>
-            
-            <div className="space-y-2 mb-5 ml-4">
-              <div className="form-control mt-1">
-                <button
-                  onClick={handlegoogle}
-                  className="btn  font-bold bg-slate-300 w-3/4 ml-7"
-                >
-                  <span> 
-                    <FaGoogle className="text-2xl"></FaGoogle>
-                  </span>
-                  login with google
-                </button>
-
-                <p className="text-center text-red-500">{errors}</p>
-              </div>
-
-           </div>
-
-
           </div>
         </div>
         <ToastContainer></ToastContainer>

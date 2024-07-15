@@ -197,22 +197,6 @@ const Registration = () => {
               </div>
             </form>
             
-            <div className="space-y-2 mb-5 ml-4">
-              <div className="form-control mt-1">
-                <button
-                  onClick={handlegoogle}
-                  className="btn  font-bold bg-slate-300 w-3/4 ml-7"
-                >
-                  <span> 
-                    <FaGoogle className="text-2xl"></FaGoogle>
-                  </span>
-                  login with google
-                </button>
-
-                
-              </div>
-
-           </div>
             
            <div className="flex justify-end text-blue-600 underline mb-5 mr-4">
                 {" "}
