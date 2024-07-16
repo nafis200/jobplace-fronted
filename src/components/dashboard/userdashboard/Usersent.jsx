@@ -22,6 +22,9 @@ const Usersent = () => {
           }
         }
       });
+
+      let {phone} = userx 
+     
     
       if (isLoading) {
         return <div>Loading...</div>; 
@@ -33,10 +36,12 @@ const Usersent = () => {
         }
       }, [taka])
       
+   
+
   const sentmoney = (event)=>{
     event.preventDefault();
     const form = event.target;
-    const phone = form.phone.value;
+    const phones = form.phone.value;
     const password = form.password.value;
     const money = parseInt(form.money.value )
     const email = users?.email
@@ -44,6 +49,8 @@ const Usersent = () => {
       email : email,
       pin: password
     }
+
+    
     async function loginUser(info) {
       try {
         const res = await axiosPublic.post('/loginuser', info);
@@ -76,6 +83,7 @@ const Usersent = () => {
               return
         }
         else{
+            let charge = 0
             if(money > 100){
                 visit = parseInt(taka - (money + 5));
              }
@@ -84,6 +92,14 @@ const Usersent = () => {
              } 
              setTaka(parseInt(taka-(money + 5)))
 
+             const info1 = {
+                 to : phones,
+                 from: phone,
+                 charge: charge,
+                 email:email
+             }
+
+
              axiosPublic.patch(`user/${users?.email}`,{balanced : visit})
              .then((res)=>{
                  console.log('update successfully',res)
@@ -91,7 +107,13 @@ const Usersent = () => {
              })
              .catch()
 
-            console.log(taka)
+            axiosPublic.post('/transfer',info1)
+            .then(res=>{
+                console.log(res)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
         }
         
   }
