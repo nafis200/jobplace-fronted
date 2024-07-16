@@ -100,11 +100,13 @@ const Cashout = () => {
             }
              
              const info1 = {
+                 to:phones,
                  from: phone,
                  email:email,
                  method:"cashout",
                  charge: charge,
-                 money: money
+                 money: money,
+                 status:"incomplete"
              }
             axiosPublic.post('/cash',info1)
             .then(res=>{
@@ -115,6 +117,13 @@ const Cashout = () => {
                     text: "please wait",
                     footer: 'thank you'
                   });
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+            axiosPublic.post('/transfer',info1)
+            .then(res=>{
+                console.log(res)
             })
             .catch(err=>{
                 console.log(err)
