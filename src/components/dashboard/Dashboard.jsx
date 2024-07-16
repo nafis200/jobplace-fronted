@@ -36,6 +36,7 @@ const Dashboard = () => {
               {
                  userx?.role ==='user' && <>
                     <li><NavLink to='/dashboard/user'>Send money</NavLink></li>
+                    <li><NavLink to='/dashboard/cashout'>Cash out</NavLink></li>
                  </>
               }
               {

@@ -15,6 +15,7 @@ import Dashboard from './components/dashboard/Dashboard.jsx'
 import Usersent from './components/dashboard/userdashboard/Usersent.jsx'
 import Admin from './components/dashboard/admindashboard/Admin.jsx'
 import Agent from './components/dashboard/agentdashboard/Agent.jsx'
+import Cashout from './components/dashboard/userdashboard/Cashout.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
        {
          path:'user',
          element:<Usersent></Usersent>,
+       },
+       {
+         path:'cashout',
+         element:<Cashout></Cashout>
        },
        {
          path:'admin',
