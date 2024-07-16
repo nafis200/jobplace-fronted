@@ -10,7 +10,7 @@ const Usersent = () => {
   let [taka,setTaka] = useState(0);
   const [count,setCount] = useState(0)
   let visit = 0
-    const { data: userx = [], isLoading} = useQuery({
+    const { data: userx = [], isLoading, refetch} = useQuery({
         queryKey: ['menu'],
         queryFn: async () => {
           try {
@@ -33,7 +33,6 @@ const Usersent = () => {
         }
       }, [taka])
       
-
   const sentmoney = (event)=>{
     event.preventDefault();
     const form = event.target;
@@ -85,8 +84,14 @@ const Usersent = () => {
              } 
              setTaka(parseInt(taka-(money + 5)))
 
-             
+             axiosPublic.patch(`user/${users?.email}`,{balanced : visit})
+             .then((res)=>{
+                 console.log('update successfully',res)
+                 refetch()
+             })
+             .catch()
 
+            console.log(taka)
         }
         
   }
