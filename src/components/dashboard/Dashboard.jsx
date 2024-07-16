@@ -8,14 +8,19 @@ import { NavLink, Outlet } from "react-router-dom";
 const Dashboard = () => {
     const {users} = useAuth()
     const axiosSecure = useAxiosSexure()
-    const {data: userx = []} = useQuery({
-        queryKey:['menu'],
-        queryFn:async()=>{
-            const res = await axiosSecure.get(`/users/${users?.email}`)
-            return res.data
-        } 
-    })
-    console.log(userx)
+    const { data: userx = [] } = useQuery({
+        queryKey: ['menu'],
+        queryFn: async () => {
+          try {
+            const res = await axiosSecure.get(`/users/${users?.email}`);
+            return res.data;
+          } catch (err) {
+            console.error(err);
+            return []; 
+          }
+        }
+      });
+      console.log(userx)
    
     return (
         <div>
