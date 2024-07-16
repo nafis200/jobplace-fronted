@@ -38,11 +38,12 @@ const Dashboard = () => {
                     <li><NavLink to='/dashboard/user'>Send money</NavLink></li>
                     <li><NavLink to='/dashboard/cashout'>Cash out</NavLink></li>
                     <li><NavLink to='/dashboard/cashin'>Cash In</NavLink></li>
+                    <li> <NavLink to='/dashboard/checkbalance'>Check balanced</NavLink> </li>
                  </>
               }
               {
                 userx?.role === 'user' && <>
-                <li><NavLink to='/dashboard/balance'>Balance</NavLink></li>
+                <li><NavLink to='/dashboard/balance'>History</NavLink></li>
                 </>
               }
               {

@@ -18,6 +18,7 @@ import Agent from './components/dashboard/agentdashboard/Agent.jsx'
 import Cashout from './components/dashboard/userdashboard/Cashout.jsx'
 import CashIn from './components/dashboard/userdashboard/CashIn.jsx'
 import Balance from './components/dashboard/userdashboard/Balance.jsx'
+import Checkbalance from './components/dashboard/userdashboard/Checkbalance.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
        {
          path:'balance',
          element: <Balance></Balance>
+       },
+       {
+          path:'checkbalance',
+          element:<Checkbalance></Checkbalance>
        },
        {
          path:'admin',
