@@ -1,4 +1,3 @@
-
 import useAuth from "./useAuth";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -8,37 +7,32 @@ import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { updateProfile } from "firebase/auth";
 import useAxiospublic from "./hooks/useAxiospublic";
-import Swal from 'sweetalert2'
-import { FaGoogle } from "react-icons/fa";
+import Swal from "sweetalert2";
 const Registration = () => {
+  const axiosPublic = useAxiospublic();
 
-  const axiosPublic = useAxiospublic()
-  
   const [showpass, setShowpass] = useState(false);
   const { createUser } = useAuth();
   const { signIngoogle } = useAuth();
 
   const handlegoogle = () => {
-    signIngoogle()
-      .then((result) => {
-        const userinfo = {
-           name:result.user.displayName,
-           email:result.user.email
+    signIngoogle().then((result) => {
+      const userinfo = {
+        name: result.user.displayName,
+        email: result.user.email
+      };
+      axiosPublic.post("/users", userinfo).then((res) => {
+        if (res.data.insertedId) {
+          Swal.fire({
+            title: "Good job!",
+            text: "Successfully register!",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2000
+          });
         }
-        axiosPublic.post('/users',userinfo)
-        .then(res => {
-            if(res.data.insertedId){
-             Swal.fire({
-               title: "Good job!",
-               text: "Successfully register!",
-               icon: "success",
-               showConfirmButton: false,
-               timer: 2000
-             });
-
-            }
-        })
-      })
+      });
+    });
   };
 
   const {
@@ -52,40 +46,34 @@ const Registration = () => {
     createUser(data.email, data.password)
       .then((result) => {
         updateProfile(result.user, {
-          displayName: data.name,
-          photoURL: data.image
+          displayName: data.name
         })
           .then(() => {
             const userinfo = {
               name: data.name,
               email: data.email
-          }
+            };
 
-          axiosPublic.post('/users',userinfo)
-          .then(res => {
-              if(res.data.insertedId){
-               Swal.fire({
-                 title: "Good job!",
-                 text: "Successfully register!",
-                 icon: "success",
-                 showConfirmButton: false,
-                 timer: 2000
-               });
- 
+            axiosPublic.post("/users", userinfo).then((res) => {
+              if (res.data.insertedId) {
+                Swal.fire({
+                  title: "Good job!",
+                  text: "Successfully register!",
+                  icon: "success",
+                  showConfirmButton: false,
+                  timer: 2000
+                });
               }
-          })
-
-
+            });
           })
           .catch(() => {});
-          console.log(result.user)
+        console.log(result.user);
       })
       .catch((error) => {
         console.log(error);
         toast.error("not register");
       });
-      reset()
-
+    reset();
   };
 
   return (
@@ -116,17 +104,26 @@ const Registration = () => {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">imageLink</span>
+                  <span className="label-text">Phone Number</span>
                 </label>
                 <input
-                  type="text"
-                  placeholder="imageurl"
-                  name="image"
+                  type="tel"
+                  placeholder="Enter your phone number"
+                  name="phone"
                   className="input input-bordered"
-                  {...register("image", { required: true })}
+                  pattern="^\d{11}$"
+                  {...register("phone", {
+                    required: true,
+                    pattern: /^\d{11}$/
+                  })}
                 />
-                {errors.image && (
-                  <span className="text-red-600">image field is required</span>
+                {errors.phone && (
+                  <span className="text-red-600">
+                    {errors.phone.type === "required" &&
+                      "Phone number is required"}
+                    {errors.phone.type === "pattern" &&
+                      "Phone number must be 10 digits"}
+                  </span>
                 )}
               </div>
               <div className="form-control">
@@ -189,20 +186,17 @@ const Registration = () => {
                       <FaEyeSlash className="text-3xl"></FaEyeSlash>
                     )}
                   </span>
-                  
                 </div>
               </div>
               <div className="form-control mt-6">
                 <button className="btn btn-primary">Register</button>
               </div>
             </form>
-            
-            
-           <div className="flex justify-end text-blue-600 underline mb-5 mr-4">
-                {" "}
-                <NavLink to="/login">Login</NavLink>{" "}
-              </div>
 
+            <div className="flex justify-end text-blue-600 underline mb-5 mr-4">
+              {" "}
+              <NavLink to="/login">Login</NavLink>{" "}
+            </div>
           </div>
         </div>
       </div>

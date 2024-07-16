@@ -5,7 +5,7 @@ const Home = () => {
     navigate('/login')
     return (
         <div>
-            
+          
         </div>
     );
 };

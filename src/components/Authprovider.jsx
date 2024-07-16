@@ -4,7 +4,9 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
-  GoogleAuthProvider
+  GoogleAuthProvider,
+  signInWithPhoneNumber,
+  RecaptchaVerifier
 } from "firebase/auth";
 
 import { createContext, useEffect, useState } from "react";
@@ -19,6 +21,7 @@ const Authprovider = ({ children }) => {
   const axiosPublic = useAxiospublic();
   const [users, setUsers] = useState();
   const [loading, setLoading] = useState(true);
+
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
@@ -27,6 +30,11 @@ const Authprovider = ({ children }) => {
   const signInUser = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const signInWithPhone = (phoneNumber, appVerifier) => {
+    setLoading(true);
+    return signInWithPhoneNumber(auth, phoneNumber, appVerifier);
   };
 
   const logout = () => {
@@ -52,7 +60,6 @@ const Authprovider = ({ children }) => {
             setLoading(false);
           }
         });
-
       } else {
         localStorage.removeItem("access-token");
       }
@@ -61,14 +68,17 @@ const Authprovider = ({ children }) => {
       unSubscrive();
     };
   }, [axiosPublic]);
+
   const authInfo = {
     users,
     createUser,
     loading,
     signInUser,
+    signInWithPhone,
     logout,
     signIngoogle
   };
+
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
