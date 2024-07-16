@@ -37,7 +37,7 @@ const Registration = () => {
               pin:data.pin,
               status:"incomplete",
               role:"user",
-              balanced:40
+              balanced:600
 
             };
 

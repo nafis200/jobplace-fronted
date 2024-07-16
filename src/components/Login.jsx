@@ -9,27 +9,23 @@ import axios from "axios";
 const Login = () => {
   const axiosPublic = useAxiospublic()
   const [errors,setErrors] = useState("")
-  const [flag,setFlag] = useState(false)
+  // const [flag,setFlag] = useState(false)
   const { signInUser} = useAuth();
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    const info = {
-       email:email,
-       pin:password
-    }
-    async function loginUser(info) {
-      try {
-        const res = await axiosPublic.post('/loginuser', info);
-        setFlag(res.data);
-        console.log(res.data); // log the response data after setting the flag
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    loginUser(info);
+    // async function loginUser(info) {
+    //   try {
+    //     const res = await axiosPublic.post('/loginuser', info);
+    //     setFlag(res.data);
+    //     console.log(res.data);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // }
+    // loginUser(info);
     signInUser(email, password)
       .then((result) => {
         Swal.fire({
