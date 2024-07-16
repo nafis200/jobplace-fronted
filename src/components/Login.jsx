@@ -16,6 +16,10 @@ const Login = () => {
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
+    // const info = {
+    //   email : email,
+    //   pin: password
+    // }
     // async function loginUser(info) {
     //   try {
     //     const res = await axiosPublic.post('/loginuser', info);
@@ -26,6 +30,7 @@ const Login = () => {
     //   }
     // }
     // loginUser(info);
+    // console.log(flag)
     signInUser(email, password)
       .then((result) => {
         Swal.fire({

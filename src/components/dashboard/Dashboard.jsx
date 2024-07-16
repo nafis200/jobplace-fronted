@@ -8,7 +8,7 @@ import { NavLink, Outlet } from "react-router-dom";
 const Dashboard = () => {
     const {users} = useAuth()
     const axiosSecure = useAxiosSexure()
-    const { data: userx = [] } = useQuery({
+    const { data: userx = [], isLoading} = useQuery({
         queryKey: ['menu'],
         queryFn: async () => {
           try {
@@ -20,7 +20,13 @@ const Dashboard = () => {
           }
         }
       });
+    
+      if (isLoading) {
+        return <div>Loading...</div>; 
+      }
       console.log(userx)
+    
+    
    
     return (
         <div>
@@ -29,10 +35,24 @@ const Dashboard = () => {
             <div className="w-64 min-h-screen bg-blue-600 text-white">
             <ul className="menu p-4">
             <li><NavLink to='/dashboard/wellcome'>your profile</NavLink></li>
+              {
+                 userx?.role ==='user' && <>
+                    <li><NavLink to='/dashboard/user'>Send money</NavLink></li>
+                 </>
+              }
+              {
+                 userx?.role === 'admin' && <>
+                   <li><NavLink to='/dashboard/admin'>Admin profile</NavLink></li>
+                 </>
+              }
+              {
+                userx?.role === 'agent' && <>
+                    <li><NavLink to='/dashboard/agent'>Agent profile</NavLink></li>
+                </>
+              }
                <div className="divider divider-neutral"></div>
-              <li> <NavLink to='/'>Home</NavLink> </li>
+               <li> <NavLink to='/'>Home</NavLink> </li>
             </ul>
-           
             </div>
             {/* dashboard content */}
             <div className="flex-1 p-8">

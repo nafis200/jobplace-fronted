@@ -12,6 +12,9 @@ import Login from './components/Login.jsx'
 import Privateroute from './components/Privateroute.jsx'
 import Wellcome from './components/dashboard/userdashboard/Wellcome.jsx'
 import Dashboard from './components/dashboard/Dashboard.jsx'
+import Usersent from './components/dashboard/userdashboard/Usersent.jsx'
+import Admin from './components/dashboard/admindashboard/Admin.jsx'
+import Agent from './components/dashboard/agentdashboard/Agent.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,6 +43,18 @@ const router = createBrowserRouter([
          path:'wellcome',
          element:<Wellcome></Wellcome>
        },
+       {
+         path:'user',
+         element:<Usersent></Usersent>,
+       },
+       {
+         path:'admin',
+         element:<Admin></Admin>
+       },
+       {
+        path:'agent',
+        element:<Agent></Agent>
+       }
     ]
    
  }
