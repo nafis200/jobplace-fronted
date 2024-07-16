@@ -2,66 +2,50 @@ import useAuth from "./useAuth";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { updateProfile } from "firebase/auth";
 import useAxiospublic from "./hooks/useAxiospublic";
 import Swal from "sweetalert2";
+
 const Registration = () => {
   const axiosPublic = useAxiospublic();
-
-  const [showpass, setShowpass] = useState(false);
-  const { createUser } = useAuth();
-  const { signIngoogle } = useAuth();
-
-  const handlegoogle = () => {
-    signIngoogle().then((result) => {
-      const userinfo = {
-        name: result.user.displayName,
-        email: result.user.email
-      };
-      axiosPublic.post("/users", userinfo).then((res) => {
-        if (res.data.insertedId) {
-          Swal.fire({
-            title: "Good job!",
-            text: "Successfully register!",
-            icon: "success",
-            showConfirmButton: false,
-            timer: 2000
-          });
-        }
-      });
-    });
-  };
+  const { createUser} = useAuth();
 
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors }
+    formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
-    createUser(data.email, data.password)
+    
+    createUser(data.email, data.pin)
       .then((result) => {
         updateProfile(result.user, {
-          displayName: data.name
+          displayName: data.name,
         })
           .then(() => {
             const userinfo = {
-              name: data.name,
-              email: data.email
+              name:data.name,
+              phone:data.phone,
+              email:data.email,
+              pin:data.pin,
+              status:"incomplete",
+              role:"user",
+              balanced:40
+
             };
 
             axiosPublic.post("/users", userinfo).then((res) => {
               if (res.data.insertedId) {
                 Swal.fire({
                   title: "Good job!",
-                  text: "Successfully register!",
+                  text: "Successfully registered!",
                   icon: "success",
                   showConfirmButton: false,
-                  timer: 2000
+                  timer: 2000,
                 });
               }
             });
@@ -71,7 +55,7 @@ const Registration = () => {
       })
       .catch((error) => {
         console.log(error);
-        toast.error("not register");
+        toast.error("Registration failed");
       });
     reset();
   };
@@ -89,17 +73,17 @@ const Registration = () => {
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">name</span>
+                  <span className="label-text">Name</span>
                 </label>
                 <input
                   type="text"
                   name="name"
-                  placeholder="name"
+                  placeholder="Enter your name"
                   className="input input-bordered"
                   {...register("name", { required: true })}
                 />
                 {errors.name && (
-                  <span className="text-red-600">name field is required</span>
+                  <span className="text-red-600">Name field is required</span>
                 )}
               </div>
               <div className="form-control">
@@ -108,13 +92,13 @@ const Registration = () => {
                 </label>
                 <input
                   type="tel"
-                  placeholder="Enter your phone number"
+                  placeholder="Enter your 11-digit phone number"
                   name="phone"
                   className="input input-bordered"
                   pattern="^\d{11}$"
                   {...register("phone", {
                     required: true,
-                    pattern: /^\d{11}$/
+                    pattern: /^\d{11}$/,
                   })}
                 />
                 {errors.phone && (
@@ -122,7 +106,7 @@ const Registration = () => {
                     {errors.phone.type === "required" &&
                       "Phone number is required"}
                     {errors.phone.type === "pattern" &&
-                      "Phone number must be 10 digits"}
+                      "Phone number must be 11 digits"}
                   </span>
                 )}
               </div>
@@ -132,75 +116,62 @@ const Registration = () => {
                 </label>
                 <input
                   type="email"
-                  placeholder="email"
+                  placeholder="Enter your email"
                   name="email"
                   className="input input-bordered"
                   {...register("email", { required: true })}
                 />
                 {errors.email && (
-                  <span className="text-red-600">email is required</span>
+                  <span className="text-red-600">Email is required</span>
                 )}
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Password</span>
+                  <span className="label-text">PIN</span>
                 </label>
                 <div className="relative form-control">
                   <input
-                    type={showpass ? "text" : "password"}
-                    placeholder="password"
+                    type="tel"
+                    placeholder="Enter your 6-digit PIN"
                     className="input input-bordered"
-                    name="password"
-                    {...register("password", {
+                    name="pin"
+                    pattern="^\d{6}$"
+                    {...register("pin", {
                       required: true,
                       minLength: 6,
-                      maxLength: 20,
-                      pattern: /^(?=.*[a-z])(?=.*[A-Z]).+$/
+                      maxLength: 6,
+                      pattern: /^\d{6}$/,
                     })}
                   />
-                  {errors.password?.type === "required" && (
-                    <span className="text-red-600">password is required</span>
+                  {errors.pin?.type === "required" && (
+                    <span className="text-red-600">PIN is required</span>
                   )}
-                  {errors.password?.type === "minLength" && (
+                  {errors.pin?.type === "minLength" && (
                     <span className="text-red-600">
-                      Password should be six character
+                      PIN mus be 6 digits
                     </span>
                   )}
-                  {errors.password?.type === "maxLength" && (
+                  {errors.pin?.type === "maxLength" && (
                     <span className="text-red-600">
-                      Password less tahn 20 character
+                      PIN should be 6 digits long
                     </span>
                   )}
-                  {errors.password?.type === "pattern" && (
-                    <p className="text-red-600">
-                      Password must have one Uppercase one lower case.
-                    </p>
+                  {errors.pin?.type === "pattern" && (
+                    <p className="text-red-600">PIN must be exactly 6 digits</p>
                   )}
-                  <span
-                    className="absolute top-2 right-2 lg:right-4"
-                    onClick={() => setShowpass(!showpass)}
-                  >
-                    {showpass ? (
-                      <FaEye className="text-3xl"></FaEye>
-                    ) : (
-                      <FaEyeSlash className="text-3xl"></FaEyeSlash>
-                    )}
-                  </span>
                 </div>
               </div>
               <div className="form-control mt-6">
                 <button className="btn btn-primary">Register</button>
               </div>
             </form>
-
             <div className="flex justify-end text-blue-600 underline mb-5 mr-4">
-              {" "}
-              <NavLink to="/login">Login</NavLink>{" "}
+              <NavLink to="/login">Login</NavLink>
             </div>
           </div>
         </div>
       </div>
-      <ToastContainer></ToastContainer>
+      <ToastContainer />
     </div>
   );
 };
