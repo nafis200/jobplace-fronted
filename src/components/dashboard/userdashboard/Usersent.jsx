@@ -1,5 +1,5 @@
 import useAuth from "../../useAuth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAxiospublic from "../../hooks/useAxiospublic";
 import { useQuery } from "@tanstack/react-query";
 const Usersent = () => {
@@ -23,7 +23,12 @@ const Usersent = () => {
       if (isLoading) {
         return <div>Loading...</div>; 
       }
-      const {balanced} = userx
+      useEffect(() => {
+        if (userx && userx.balanced !== undefined) {
+          setTaka(userx.balanced);
+        }
+      }, [userx])
+      console.log(taka)
 
   const sentmoney = (event)=>{
     event.preventDefault();
