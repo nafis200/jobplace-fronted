@@ -2,6 +2,7 @@ import useAuth from "../../useAuth";
 import { useEffect, useState } from "react";
 import useAxiospublic from "../../hooks/useAxiospublic";
 import { useQuery } from "@tanstack/react-query";
+import Swal from 'sweetalert2'
 const Usersent = () => {
   const {users} = useAuth()
   const [flag,setFlag] = useState(false)
@@ -27,8 +28,8 @@ const Usersent = () => {
         if (userx && userx.balanced !== undefined) {
           setTaka(userx.balanced);
         }
-      }, [userx])
-      console.log(taka)
+      }, [])
+      
 
   const sentmoney = (event)=>{
     event.preventDefault();
@@ -51,6 +52,30 @@ const Usersent = () => {
       }
     }
        loginUser(info)
+
+
+        if(money > taka || money < 50){
+        
+            Swal.fire({
+                icon: "error",
+                title: "You have not allow",
+                text: "not enough money to send",
+                footer: '<a href="#">Why do I have this issue?</a>'
+              });
+        }
+
+
+        if(!flag){
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Pin is wrong!",
+                footer: 'please give correct pin'
+              });
+        }
+
+
+
   }
   return (
     <div className="hero min-h-screen bg-base-200  bg-[url('')] ">
