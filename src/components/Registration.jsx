@@ -20,7 +20,10 @@ const Registration = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    
+    const info = {
+        email:data.email,
+        pin:data.pin
+      }
     createUser(data.email, data.pin)
       .then((result) => {
         updateProfile(result.user, {
@@ -51,6 +54,10 @@ const Registration = () => {
             });
           })
           .catch(() => {});
+
+          
+
+      
         console.log(result.user);
       })
       .catch((error) => {

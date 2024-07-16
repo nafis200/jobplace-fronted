@@ -1,20 +1,35 @@
 import useAuth from "./useAuth";
-import { FaGoogle } from "react-icons/fa";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { NavLink } from "react-router-dom";
 import useAxiospublic from "./hooks/useAxiospublic";
 import Swal from 'sweetalert2'
+import axios from "axios";
 const Login = () => {
   const axiosPublic = useAxiospublic()
   const [errors,setErrors] = useState("")
-  const { signInUser, signIngoogle } = useAuth();
+  const [flag,setFlag] = useState(false)
+  const { signInUser} = useAuth();
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
+    const info = {
+       email:email,
+       pin:password
+    }
+    async function loginUser(info) {
+      try {
+        const res = await axiosPublic.post('/loginuser', info);
+        setFlag(res.data);
+        console.log(res.data); // log the response data after setting the flag
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    loginUser(info);
     signInUser(email, password)
       .then((result) => {
         Swal.fire({
@@ -32,31 +47,7 @@ const Login = () => {
         toast.error("email password should be match");
       });
   };
-  const handlegoogle = () => {
-    signIngoogle()
-      .then((result) => {
-        setErrors(' ')
-        const userinfo = {
-          name:result.user.displayName,
-          email:result.user.email
-       }
-       axiosPublic.post('/users',userinfo)
-       .then(res => {
-           if(res.data.insertedId){
-            Swal.fire({
-              title: "Good job!",
-              text: "Successfully register!",
-              icon: "success",
-              showConfirmButton: false,
-              timer: 2000
-            });
-
-           }
-       }) 
-
-      })
-  };
-
+  
   
   return (
     <>
