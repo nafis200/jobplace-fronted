@@ -96,7 +96,9 @@ const Usersent = () => {
                  to : phones,
                  from: phone,
                  charge: charge,
-                 email:email
+                 email:email,
+                 method:"sent",
+                 money:visit
              }
 
 

@@ -29,7 +29,32 @@ const Balance = () => {
 
     return (
         <div>
-            <h2 className="text-2xl">{userx.length}</h2>
+            <h2 className="text-2xl text-center">{userx.length}</h2>
+            <div className="overflow-x-auto">
+        <table className="table">
+          {/* head */}
+          <thead>
+            <tr>
+              <th>to</th>
+              <th>email</th>
+              <th>Method</th>
+              <th>Money</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {userx.map((it) => (
+              <tr key={it._id}>
+                <td>{it.to}</td>
+                <td>{it.email}</td>
+                <td>{it.method}</td>
+                <td>{it.money}</td>
+                <td>{it.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
         </div>
     );
 };
