@@ -1,16 +1,36 @@
 import useAuth from "../../useAuth";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useAxiospublic from "../../hooks/useAxiospublic";
-
+import { useQuery } from "@tanstack/react-query";
 const Usersent = () => {
   const {users} = useAuth()
   const [flag,setFlag] = useState(false)
   const axiosPublic = useAxiospublic()
+  const [taka,setTaka] = useState(0);
+    const { data: userx = [], isLoading} = useQuery({
+        queryKey: ['menu'],
+        queryFn: async () => {
+          try {
+            const res = await axiosPublic.get(`/users/${users?.email}`);
+            return res.data;
+          } catch (err) {
+            console.error(err);
+            return []; 
+          }
+        }
+      });
+    
+      if (isLoading) {
+        return <div>Loading...</div>; 
+      }
+      const {balanced} = userx
+
   const sentmoney = (event)=>{
     event.preventDefault();
     const form = event.target;
     const phone = form.phone.value;
     const password = form.password.value;
+    const money = form.money.value 
     const email = users?.email
     const info = {
       email : email,
@@ -37,13 +57,25 @@ const Usersent = () => {
         <form  onSubmit={sentmoney} className="card-body">
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Email</span>
+              <span className="label-text">Phone Number</span>
             </label>
             <input
               type="number"
               placeholder="phone number"
               className="input input-bordered"
               name="phone"
+              required
+            />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Money</span>
+            </label>
+            <input
+              type="number"
+              placeholder="sent amount"
+              className="input input-bordered"
+              name="money"
               required
             />
           </div>

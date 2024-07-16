@@ -24,9 +24,7 @@ const Dashboard = () => {
       if (isLoading) {
         return <div>Loading...</div>; 
       }
-      console.log(userx)
-    
-    
+      
    
     return (
         <div>
