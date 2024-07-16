@@ -7,7 +7,9 @@ const Usersent = () => {
   const {users} = useAuth()
   const [flag,setFlag] = useState(false)
   const axiosPublic = useAxiospublic()
-  const [taka,setTaka] = useState(0);
+  let [taka,setTaka] = useState(0);
+  const [count,setCount] = useState(0)
+  let visit = 0
     const { data: userx = [], isLoading} = useQuery({
         queryKey: ['menu'],
         queryFn: async () => {
@@ -26,9 +28,10 @@ const Usersent = () => {
       }
       useEffect(() => {
         if (userx && userx.balanced !== undefined) {
-          setTaka(userx.balanced);
+          setTaka(parseInt(userx.balanced));
+          setCount(count + 1)
         }
-      }, [])
+      }, [taka])
       
 
   const sentmoney = (event)=>{
@@ -36,7 +39,7 @@ const Usersent = () => {
     const form = event.target;
     const phone = form.phone.value;
     const password = form.password.value;
-    const money = form.money.value 
+    const money = parseInt(form.money.value )
     const email = users?.email
     const info = {
       email : email,
@@ -53,29 +56,39 @@ const Usersent = () => {
     }
        loginUser(info)
 
-
+       if(!flag){
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Pin is wrong!",
+            footer: 'please give correct pin'
+          });
+          return
+    }
+    
         if(money > taka || money < 50){
         
             Swal.fire({
                 icon: "error",
                 title: "You have not allow",
                 text: "not enough money to send",
-                footer: '<a href="#">Why do I have this issue?</a>'
+                footer: 'Again try'
               });
+              return
         }
+        else{
+            if(money > 100){
+                visit = parseInt(taka - (money + 5));
+             }
+             else{
+               visit = parseInt(taka - money)
+             } 
+             setTaka(parseInt(taka-(money + 5)))
 
+             
 
-        if(!flag){
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Pin is wrong!",
-                footer: 'please give correct pin'
-              });
         }
-
-
-
+        
   }
   return (
     <div className="hero min-h-screen bg-base-200  bg-[url('')] ">
