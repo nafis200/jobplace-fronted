@@ -41,6 +41,11 @@ const Dashboard = () => {
                  </>
               }
               {
+                userx?.role === 'user' && <>
+                <li><NavLink to='/dashboard/balance'>Balance</NavLink></li>
+                </>
+              }
+              {
                  userx?.role === 'admin' && <>
                    <li><NavLink to='/dashboard/admin'>Admin profile</NavLink></li>
                  </>
