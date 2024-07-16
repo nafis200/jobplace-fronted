@@ -33,15 +33,16 @@ const router = createBrowserRouter([
     ]
   },
   {
-       path:'dashboard',
-       element:<Privateroute><Dashboard></Dashboard></Privateroute>,
-       children:[
-        {
-           path:'wellcome',
-           element:<Wellcome></Wellcome>
-        }
-       ]
-  }
+    path:'dashboard',
+    element: <Privateroute><Dashboard></Dashboard></Privateroute>,
+    children:[
+       {
+         path:'wellcome',
+         element:<Wellcome></Wellcome>
+       },
+    ]
+   
+ }
  
 ]);
 
