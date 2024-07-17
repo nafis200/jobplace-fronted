@@ -56,6 +56,7 @@ const Dashboard = () => {
                  userx?.role === 'agent' && <>
                    <li> <NavLink to='/dashboard/checkbalance'>Check balanced</NavLink> </li>
                    <li> <NavLink to='/dashboard/agentmanage'>Management</NavLink> </li>
+                   <li> <NavLink to='/dashboard/agentbalanced'>History</NavLink> </li>
                  </>
               }
              
