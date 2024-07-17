@@ -49,7 +49,7 @@ const Dashboard = () => {
               }
               {
                  userx?.role === 'admin' && <>
-                   <li><NavLink to='/dashboard/admin'>Admin profile</NavLink></li>
+                   <li><NavLink to='/dashboard/admin'>Transaction detail</NavLink></li>
                  </>
               }
                {
