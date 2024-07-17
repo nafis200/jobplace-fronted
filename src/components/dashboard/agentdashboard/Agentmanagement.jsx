@@ -71,6 +71,19 @@ const Agentmanagement = () => {
         return
       }
   }
+  else{
+    axiosPublic.patch('/updatemoney1',info)
+    .then(()=>{
+      Swal.fire({
+        icon: "success",
+        title: "yaa...",
+        text: "Cash Out",
+        footer: 'thank you'
+      });
+      refetch()
+    })
+    .catch()
+  }
      
   };
 
