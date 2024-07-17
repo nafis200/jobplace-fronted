@@ -52,7 +52,7 @@ const Adminpermit = () => {
           confirmButtonText: "Yes, delete it!"
         }).then((result) => {
           if (result.isConfirmed) {
-            axiosPublic.delete(`/users/${user._id}`).then((res) => {
+            axiosPublic.delete(`/feedback/${user._id}`).then((res) => {
               if (res.data.deletedCount > 0) {
                 refetch();
                 Swal.fire({
