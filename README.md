@@ -1,8 +1,19 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# bikash app
+# admin@gmail.com
+# password: 123456
 
-Currently, two official plugins are available:
+- live-link-url [https://bkash-app-920d1.web.app/login]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Feature
+
+- Implement a secure user authentication system using JWT tokens.
+- Role-based access control with multiple roles such as user, admin, and agent.
+- users cash in from his/her account.
+- User cash out from his/her account. 
+- user sent money from his account.
+- agent approval user transfer permission.
+- Agent see all permision wait which comes from users.
+- User check their balanced. 
+- Admin check all history of tranmission
+- user see only his transaction 
