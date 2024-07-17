@@ -21,6 +21,7 @@ import Balance from './components/dashboard/userdashboard/Balance.jsx'
 import Checkbalance from './components/dashboard/userdashboard/Checkbalance.jsx'
 import Agentbalanced from './components/dashboard/agentdashboard/Agentbalanced.jsx'
 import AgentManagement from './components/dashboard/agentdashboard/Agentmanagement.jsx'
+import Adminpermit from './components/dashboard/admindashboard/Adminpermit.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
          path:'agentmanage',
          element:<AgentManagement></AgentManagement>,
          loader:()=>fetch(`http://localhost:5000/mobile`)
+       },
+       {
+         path:'adminpermit',
+         element:<Adminpermit></Adminpermit>
        }
     ]
    
