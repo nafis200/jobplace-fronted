@@ -37,7 +37,7 @@ const Agentmanagement = () => {
     <div>
     <h1>Mobile Data</h1>
     <ul>
-      {data.map((item, index) => (
+      {data?.map((item, index) => (
         <li key={index}>
           ID: {item._id}, To: {item.to}, From: {item.from}, Email: {item.email}, Method: {item.method}
         </li>
