@@ -26,7 +26,7 @@ const Balance = () => {
     if (isLoading) {
         return <div>Loading...</div>;
     }
-
+    
     return (
         <div>
             <h2 className="text-2xl text-center">{userx.length}</h2>

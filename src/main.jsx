@@ -19,6 +19,8 @@ import Cashout from './components/dashboard/userdashboard/Cashout.jsx'
 import CashIn from './components/dashboard/userdashboard/CashIn.jsx'
 import Balance from './components/dashboard/userdashboard/Balance.jsx'
 import Checkbalance from './components/dashboard/userdashboard/Checkbalance.jsx'
+import Agentbalanced from './components/dashboard/agentdashboard/Agentbalanced.jsx'
+import AgentManagement from './components/dashboard/agentdashboard/Agentmanagement.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -74,6 +76,15 @@ const router = createBrowserRouter([
        {
         path:'agent',
         element:<Agent></Agent>
+       },
+       {
+         path:'agentbalanced',
+         element:<Agentbalanced></Agentbalanced>
+       },
+       {
+         path:'agentmanage',
+         element:<AgentManagement></AgentManagement>,
+         loader:()=>fetch(`http://localhost:5000/mobile`)
        }
     ]
    

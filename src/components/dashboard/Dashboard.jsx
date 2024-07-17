@@ -41,6 +41,7 @@ const Dashboard = () => {
                     <li> <NavLink to='/dashboard/checkbalance'>Check balanced</NavLink> </li>
                  </>
               }
+            
               {
                 userx?.role === 'user' && <>
                 <li><NavLink to='/dashboard/balance'>History</NavLink></li>
@@ -51,11 +52,13 @@ const Dashboard = () => {
                    <li><NavLink to='/dashboard/admin'>Admin profile</NavLink></li>
                  </>
               }
-              {
-                userx?.role === 'agent' && <>
-                    <li><NavLink to='/dashboard/agent'>Agent profile</NavLink></li>
-                </>
+               {
+                 userx?.role === 'agent' && <>
+                   <li> <NavLink to='/dashboard/checkbalance'>Check balanced</NavLink> </li>
+                   <li> <NavLink to='/dashboard/agentmanage'>Management</NavLink> </li>
+                 </>
               }
+             
                <div className="divider divider-neutral"></div>
                <li> <NavLink to='/'>Home</NavLink> </li>
             </ul>
