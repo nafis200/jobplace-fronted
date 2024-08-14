@@ -1,4 +1,6 @@
+import Card from "./Card";
 import Login from "./Login";
+import SearchBar from "./SearchBar";
 import useAuth from "./useAuth";
 
 
@@ -8,6 +10,9 @@ const Home = () => {
         <div>
           {
              !users?.email && <Login></Login>
+          }
+          {
+             users?.email && <Card></Card>
           }
         </div>
     );
