@@ -20,7 +20,7 @@ const Card = () => {
     }, []);
 
     useEffect(() => {
-        fetch(`https://module63-2.vercel.app/products?page=${currentPage}&size=${itemPerPages}`)
+        fetch(`http://localhost:5000/products?page=${currentPage}&size=${itemPerPages}`)
             .then(res => res.json())
             .then(data => setItems(data))
             .catch(error => {
@@ -79,6 +79,7 @@ const Card = () => {
                     <option value="5">5</option>
                     <option value="6">6</option>
                     <option value="10">10</option>
+                    <option value="20">20</option>
                 </select>
             </section>
         </div>
