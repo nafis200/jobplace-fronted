@@ -1,5 +1,6 @@
 import useAuth from "./useAuth";
 import { useState } from "react";
+import { FaGoogle } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -10,7 +11,7 @@ import Swal from "sweetalert2";
 
 const Registration = () => {
   const axiosPublic = useAxiospublic();
-  const { createUser} = useAuth();
+  const { createUser, signIngoogle} = useAuth();
   const navigate = useNavigate()
 
   const {
@@ -66,6 +67,20 @@ const Registration = () => {
         toast.error("Registration failed");
       });
     reset();
+  };
+
+  const handlegoogle = () => {
+    signIngoogle()
+      .then((result) => {
+      Swal.fire({
+        title: `Good job!${result.user.email}`,
+        text: "Successfully login!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 2000
+      });
+         navigate('/')
+      })
   };
 
   return (
@@ -177,6 +192,20 @@ const Registration = () => {
               <span className="font-bold mr-3">Already user</span>
               <span className="text-blue-600 underline"><NavLink to="/login">Login</NavLink></span>
             </div>
+            <div className="space-y-2 mb-5 ml-4">
+              <div className="form-control mt-1">
+                <button
+                  onClick={handlegoogle}
+                  className="btn  font-bold bg-slate-300 w-3/4 ml-7"
+                >
+                  <span> 
+                    <FaGoogle className="text-2xl"></FaGoogle>
+                  </span>
+                  login with google
+                </button>
+              </div>
+
+           </div>
           </div>
         </div>
       </div>
