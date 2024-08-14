@@ -37,7 +37,7 @@ const Login = () => {
   
   return (
     <>
-      <div className="hero min-h-screen bg-base-200  bg-[url('')] ">
+      <div className="hero min-h-screen bg-base-200  bg-[url('32027446_7889361.jpg')] ">
         <div className="hero-content flex-col lg:flex-row">
           {<div className="mr-12 w-1/2">
             {/* <img src="https://i.ibb.co/T2cpBd5/888.jpg" alt="" /> */}

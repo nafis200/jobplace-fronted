@@ -70,10 +70,10 @@ const Registration = () => {
 
   return (
     <div>
-      <div className="hero bg-base-200">
+      <div className="hero bg-base-200  bg-[url('32027446_7889361.jpg')]">
         <div className="hero-content flex-col">
           <div className="text-center">
-            <h1 className="lg:text-5xl md:text-3xl text-2xl font-bold">
+            <h1 className="lg:text-5xl text-white md:text-3xl text-2xl font-bold">
               Register now!
             </h1>
           </div>
