@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Assicard from './Assicard';
 
 const Card = () => {
-    const [itemPerPages, setItemPerPages] = useState(1);
+    const [itemPerPages, setItemPerPages] = useState(49);
     const [currentPage, setCurrentPage] = useState(0);
     const [count, setCount] = useState(49);
     const [items, setItems] = useState([]);
@@ -80,6 +80,7 @@ const Card = () => {
                     <option value="6">6</option>
                     <option value="10">10</option>
                     <option value="20">20</option>
+                    <option value={`${count}`}>{count}</option>
                 </select>
             </section>
         </div>
