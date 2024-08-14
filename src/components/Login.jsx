@@ -43,18 +43,25 @@ const Login = () => {
           name:result.user.displayName,
           email:result.user.email
        }
-       axiosPublic.post('/users',userinfo)
-       .then(res => {
-           if(res.data.insertedId){
-            Swal.fire({
-              title: "Good job!",
-              text: "Successfully register!",
-              icon: "success",
-              showConfirmButton: false,
-              timer: 2000
-            });
-           }
-       }) 
+      //  axiosPublic.post('/users',userinfo)
+      //  .then(res => {
+      //      if(res.data.insertedId){
+      //       Swal.fire({
+      //         title: "Good job!",
+      //         text: "Successfully register!",
+      //         icon: "success",
+      //         showConfirmButton: false,
+      //         timer: 2000
+      //       });
+      //      }
+      //  }) 
+      Swal.fire({
+        title: `Good job!${result.user.email}`,
+        text: "Successfully login!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 2000
+      });
          navigate('/')
       })
   };
