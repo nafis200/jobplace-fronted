@@ -6,11 +6,9 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPhoneNumber,
-  RecaptchaVerifier
 } from "firebase/auth";
 
 import { createContext, useEffect, useState } from "react";
-import axios from "axios";
 import auth from "../firebase";
 import useAxiospublic from "./hooks/useAxiospublic";
 
@@ -50,7 +48,7 @@ const Authprovider = ({ children }) => {
   useEffect(() => {
     const unSubscrive = onAuthStateChanged(auth, (currentUser) => {
       const userEmail = currentUser?.email || users?.email;
-      const loggedUser = { email: userEmail };
+      // const loggedUser = { email: userEmail };
       setUsers(currentUser);
       if (currentUser) {
         const userInfo = { email: currentUser.email };

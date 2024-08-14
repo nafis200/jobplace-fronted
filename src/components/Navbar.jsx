@@ -9,14 +9,15 @@ const Navbar = () => {
     const navigate = useNavigate()
     const links = <>
            {
-              !users?.email && <><Link className="ml-4" to='/login'>Login</Link>
+              !users?.email && <>
+              <Link className="ml-4" to='/login'>Login</Link>
               <Link className="ml-4" to='/signup'>Signup</Link>
               </>  
            },
            {
-             users?.email && <>
-              <Link className="ml-4" to='/dashboard/wellcome'>Dashboard</Link>
-             </>
+            //  users?.email && <>
+            //   <Link className="ml-4" to='/dashboard/wellcome'>Dashboard</Link>
+            //  </>
            }   
     </>
 const handlelogout = () => {
@@ -40,7 +41,8 @@ const handlelogout = () => {
           {links}
       </ul>
     </div>
-    <a className="btn btn-ghost text-xl">Online SurveyHub</a>
+    <img src="32027446_7889361.jpg" className="w-20 rounded-full" alt="" />
+    <a className="btn btn-ghost text-xl">Shoppify</a>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">

@@ -2,35 +2,19 @@ import useAuth from "./useAuth";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useAxiospublic from "./hooks/useAxiospublic";
 import Swal from 'sweetalert2'
-import axios from "axios";
 const Login = () => {
-  const axiosPublic = useAxiospublic()
+  // const axiosPublic = useAxiospublic()
   const [errors,setErrors] = useState("")
-  // const [flag,setFlag] = useState(false)
   const { signInUser} = useAuth();
+  const navigate = useNavigate()
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    // const info = {
-    //   email : email,
-    //   pin: password
-    // }
-    // async function loginUser(info) {
-    //   try {
-    //     const res = await axiosPublic.post('/loginuser', info);
-    //     setFlag(res.data);
-    //     console.log(res.data);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // }
-    // loginUser(info);
-    // console.log(flag)
     signInUser(email, password)
       .then((result) => {
         Swal.fire({
@@ -41,6 +25,7 @@ const Login = () => {
           timer: 2000
         });
         setErrors('')
+        navigate('/')
       })
       .catch((error) => {
         setErrors(' ')
@@ -92,8 +77,9 @@ const Login = () => {
               <div className="form-control mt-6">
                 <button className="btn btn-primary">Login</button>
               </div>
-              <div className="flex justify-end text-blue-600 underline">
-                <NavLink to="/signup">Register</NavLink>
+              <div className="flex justify-end">
+                 <span className="mr-2 font-bold">New User</span>
+                 <span className="text-blue-600 underline"><NavLink to="/signup">Register</NavLink></span>
               </div>
             </form>
           </div>

@@ -2,7 +2,7 @@ import useAuth from "./useAuth";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { updateProfile } from "firebase/auth";
 import useAxiospublic from "./hooks/useAxiospublic";
@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 const Registration = () => {
   const axiosPublic = useAxiospublic();
   const { createUser} = useAuth();
+  const navigate = useNavigate()
 
   const {
     register,
@@ -38,7 +39,6 @@ const Registration = () => {
               status:"incomplete",
               role:"user",
               balanced:600
-
             };
 
             axiosPublic.post("/users", userinfo).then((res) => {
@@ -50,6 +50,7 @@ const Registration = () => {
                   showConfirmButton: false,
                   timer: 2000,
                 });
+                navigate('/')
               }
             });
           })
@@ -134,12 +135,12 @@ const Registration = () => {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">PIN</span>
+                  <span className="label-text">Password</span>
                 </label>
                 <div className="relative form-control">
                   <input
                     type="tel"
-                    placeholder="Enter your 6-digit PIN"
+                    placeholder="Enter your 6 digit password"
                     className="input input-bordered"
                     name="pin"
                     pattern="^\d{6}$"
@@ -151,7 +152,7 @@ const Registration = () => {
                     })}
                   />
                   {errors.pin?.type === "required" && (
-                    <span className="text-red-600">PIN is required</span>
+                    <span className="text-red-600">Password is required</span>
                   )}
                   {errors.pin?.type === "minLength" && (
                     <span className="text-red-600">
@@ -164,7 +165,7 @@ const Registration = () => {
                     </span>
                   )}
                   {errors.pin?.type === "pattern" && (
-                    <p className="text-red-600">PIN must be exactly 6 digits</p>
+                    <p className="text-red-600">Password must be exactly 6 digits</p>
                   )}
                 </div>
               </div>
@@ -172,8 +173,9 @@ const Registration = () => {
                 <button className="btn btn-primary">Register</button>
               </div>
             </form>
-            <div className="flex justify-end text-blue-600 underline mb-5 mr-4">
-              <NavLink to="/login">Login</NavLink>
+            <div className="flex justify-end mb-5 mr-4">
+              <span className="font-bold mr-3">Already user</span>
+              <span className="text-blue-600 underline"><NavLink to="/login">Login</NavLink></span>
             </div>
           </div>
         </div>

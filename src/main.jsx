@@ -9,19 +9,6 @@ const queryClient = new QueryClient()
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Registration from './components/Registration.jsx'
 import Login from './components/Login.jsx'
-import Privateroute from './components/Privateroute.jsx'
-import Wellcome from './components/dashboard/userdashboard/Wellcome.jsx'
-import Dashboard from './components/dashboard/Dashboard.jsx'
-import Usersent from './components/dashboard/userdashboard/Usersent.jsx'
-import Admin from './components/dashboard/admindashboard/Admin.jsx'
-import Agent from './components/dashboard/agentdashboard/Agent.jsx'
-import Cashout from './components/dashboard/userdashboard/Cashout.jsx'
-import CashIn from './components/dashboard/userdashboard/CashIn.jsx'
-import Balance from './components/dashboard/userdashboard/Balance.jsx'
-import Checkbalance from './components/dashboard/userdashboard/Checkbalance.jsx'
-import Agentbalanced from './components/dashboard/agentdashboard/Agentbalanced.jsx'
-import AgentManagement from './components/dashboard/agentdashboard/Agentmanagement.jsx'
-import Adminpermit from './components/dashboard/admindashboard/Adminpermit.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -41,60 +28,7 @@ const router = createBrowserRouter([
       },
 
     ]
-  },
-  {
-    path:'dashboard',
-    element: <Privateroute><Dashboard></Dashboard></Privateroute>,
-    children:[
-       {
-         path:'wellcome',
-         element:<Wellcome></Wellcome>
-       },
-       {
-         path:'user',
-         element:<Usersent></Usersent>,
-       },
-       {
-         path:'cashout',
-         element:<Cashout></Cashout>
-       },
-       {
-         path:'cashin',
-         element:<CashIn></CashIn>
-       },
-       {
-         path:'balance',
-         element: <Balance></Balance>
-       },
-       {
-          path:'checkbalance',
-          element:<Checkbalance></Checkbalance>
-       },
-       {
-         path:'admin',
-         element:<Admin></Admin>
-       },
-       {
-        path:'agent',
-        element:<Agent></Agent>
-       },
-       {
-         path:'agentbalanced',
-         element:<Agentbalanced></Agentbalanced>
-       },
-       {
-         path:'agentmanage',
-         element:<AgentManagement></AgentManagement>,
-         loader:()=>fetch(`https://finally-deploy.vercel.app/mobile`)
-       },
-       {
-         path:'adminpermit',
-         element:<Adminpermit></Adminpermit>
-       }
-    ]
-   
- }
- 
+  }
 ]);
 
 
