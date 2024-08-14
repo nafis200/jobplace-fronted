@@ -6,13 +6,15 @@ const Card = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [count, setCount] = useState(49);
     const [items, setItems] = useState([]);
+    const [str, setStr] = useState("");
+    const [role, setRole] = useState("");
 
     useEffect(() => {
         fetch('http://localhost:5000/productsCount')
             .then(res => res.json())
             .then(data => {
-                setItemPerPages(data.count)
-                setCount(data.count)
+                setItemPerPages(data.count);
+                setCount(data.count);
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);
@@ -28,13 +30,24 @@ const Card = () => {
             });
     }, [currentPage, itemPerPages]);
 
+    useEffect(() => {
+        if (role) {
+            fetch(`http://localhost:5000/search/${role}`)
+                .then(res => res.json())
+                .then(data => setItems([data]))
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+    }, [role]);
+
     const numberOfPages = Math.ceil(count / itemPerPages);
     const pages = [...Array(numberOfPages).keys()];
-    const handleItemsPerPage = e => {
+
+    const handleItemsPerPage = (e) => {
         const val = parseInt(e.target.value);
         setItemPerPages(val);
         setCurrentPage(0);
-       
     };
 
     const handlePrev = () => {
@@ -49,10 +62,27 @@ const Card = () => {
         }
     };
 
-    console.log(currentPage)
+    const Search = () => {
+        setRole(str);
+    };
+    console.log(items)
 
     return (
         <div>
+            <div className="flex justify-center mx-auto p-4">
+                <input
+                    type="text"
+                    placeholder="Type here"
+                    className="input input-bordered input-info w-full max-w-xs rounded-3xl"
+                    onChange={(e) => setStr(e.target.value)}
+                />
+                <button
+                    onClick={Search}
+                    className="btn btn-active btn-primary ml-2 rounded-2xl"
+                >
+                    Search
+                </button>
+            </div>
             <div className="mt-20 grid lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 lg:space-y-10 space-y-5 lg:ml-4 md:ml-[200px]">
                 {items.map((data) => (
                     <Assicard key={data._id} data={data} />
