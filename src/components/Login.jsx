@@ -5,10 +5,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import useAxiospublic from "./hooks/useAxiospublic";
 import Swal from 'sweetalert2'
+import { FaGoogle } from "react-icons/fa";
 const Login = () => {
-  // const axiosPublic = useAxiospublic()
+  const axiosPublic = useAxiospublic()
   const [errors,setErrors] = useState("")
-  const { signInUser} = useAuth();
+  const { signInUser, signIngoogle} = useAuth();
   const navigate = useNavigate()
   const handleLogin = (event) => {
     event.preventDefault();
@@ -33,6 +34,31 @@ const Login = () => {
         toast.error("email password should be match");
       });
   };
+
+  const handlegoogle = () => {
+    signIngoogle()
+      .then((result) => {
+        setErrors(' ')
+        const userinfo = {
+          name:result.user.displayName,
+          email:result.user.email
+       }
+       axiosPublic.post('/users',userinfo)
+       .then(res => {
+           if(res.data.insertedId){
+            Swal.fire({
+              title: "Good job!",
+              text: "Successfully register!",
+              icon: "success",
+              showConfirmButton: false,
+              timer: 2000
+            });
+           }
+       }) 
+         navigate('/')
+      })
+  };
+
   
   
   return (
@@ -82,6 +108,22 @@ const Login = () => {
                  <span className="text-blue-600 underline"><NavLink to="/signup">Register</NavLink></span>
               </div>
             </form>
+            <div className="space-y-2 mb-5 ml-4">
+              <div className="form-control mt-1">
+                <button
+                  onClick={handlegoogle}
+                  className="btn  font-bold bg-slate-300 w-3/4 ml-7"
+                >
+                  <span> 
+                    <FaGoogle className="text-2xl"></FaGoogle>
+                  </span>
+                  login with google
+                </button>
+
+                <p className="text-center text-red-500">{errors}</p>
+              </div>
+
+           </div>
           </div>
         </div>
         <ToastContainer></ToastContainer>
