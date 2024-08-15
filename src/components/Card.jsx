@@ -68,15 +68,18 @@ const Card = () => {
     const sortByPriceAsc = () => {
         const sortedItems = [...items].sort((a, b) => a.price - b.price);
         setItems(sortedItems);
+    
     };
 
     const sortByPriceDesc = () => {
         const sortedItems = [...items].sort((a, b) => b.price - a.price);
         setItems(sortedItems);
+        
     };
 
     const sortByNewest = () => {
-        items.sort((a, b) => new Date(b.date) - new Date(a.date));
+        const sortedItems = [...items].sort((a,b)=>new Date(b.date) - new Date(a.date))
+        setItems(sortedItems)
     };
 
 
@@ -104,7 +107,7 @@ const Card = () => {
             className="btn m-1 bg-blue-400 text-center lg:w-[100px] p-2 text-white mt-5"
           >
             <span className=" flex items-center gap-2">
-              Filter by difficulty{" "}
+              Sort price
               <IoIosArrowDropdown className="lg:text-2xl"></IoIosArrowDropdown>{" "}
             </span>
           </div>
