@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Assicard from './Assicard';
 import { IoIosArrowDropdown } from "react-icons/io";
-import Searchfield from './Searchfield';
+import axios from 'axios';
 const Card = () => {
     const [itemPerPages, setItemPerPages] = useState(49);
     const [currentPage, setCurrentPage] = useState(0);
@@ -112,7 +112,19 @@ const Card = () => {
     const deleteprice = ()=>{
          setPrice("")
     }
+   const serachitem = async()=>{
+    try {
+        const response = await axios.post('http://localhost:5000/search', {
+            brandName:brandname,
+            price: price ? parseInt(price) : undefined,
+            category:category
+        });
+        setItems(response.data);
+    } catch (error) {
+        console.error('Error searching for products', error);
+    }
 
+   }
     return (
         <div>   
              <div className="flex justify-center mx-auto p-4">
@@ -157,6 +169,7 @@ const Card = () => {
           </ul>
         </div>
       </section>
+      <h1 className="text-center mt-5 font-bold">Choose by category brandname and price</h1>
       <section className='flex justify-around mt-10'>
              <div>
                 <label>Brand Name:</label>
@@ -200,6 +213,11 @@ const Card = () => {
                     <h1 className='mt-2'>{price}</h1>
                     <button onClick={deleteprice} className='btn w-20'>X</button>
                    </div>
+                }
+            </div>
+            <div>
+                {
+                    (brandname || category || price) && <button className="btn" onClick={serachitem}>Search</button>
                 }
             </div>
              </section>
