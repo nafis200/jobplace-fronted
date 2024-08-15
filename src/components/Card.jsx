@@ -39,7 +39,7 @@ const Card = () => {
         if (role) {
             fetch(`http://localhost:5000/search/${role}`)
                 .then(res => res.json())
-                .then(data => setItems([data]))
+                .then(data => setItems(data))
                 .catch(error => {
                     console.error('There was a problem with the fetch operation:', error);
                 });
@@ -113,12 +113,14 @@ const Card = () => {
          setPrice("")
     }
    const serachitem = async()=>{
+    console.log("hellow")
     try {
         const response = await axios.post('http://localhost:5000/search', {
             brandName:brandname,
             price: price ? parseInt(price) : undefined,
             category:category
         });
+        console.log(response.data)
         setItems(response.data);
     } catch (error) {
         console.error('Error searching for products', error);
@@ -174,6 +176,7 @@ const Card = () => {
              <div>
                 <label>Brand Name:</label>
                 <select className="select select-bordered" value={brandname} onChange={handleBrandChange}>
+                    <option value="None">None</option>
                     <option value="Brand Alpha">Brand Alpha</option>
                     <option value="Brand Beta">Brand Beta</option>
                     <option value="Brand Gamma">Brand Gamma</option>
@@ -188,6 +191,7 @@ const Card = () => {
             <div>
                 <label>Category Name:</label>
                 <select className="select select-bordered" value={category} onChange={handlecategory}>
+                    <option value="None">None</option>
                     <option value="Electronics">Electronics</option>
                     <option value="Clothing">Clothing</option>
                     <option value="Home Goods">Home Goods</option>
@@ -203,6 +207,7 @@ const Card = () => {
             <div>
                 <label>Price:</label>
                 <select className="select select-bordered" value={price} onChange={handleprice}>
+                    <option value="0">0</option>
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="30">30</option>
@@ -222,8 +227,8 @@ const Card = () => {
             </div>
              </section>
             <div className="mt-20 grid lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 lg:space-y-10 space-y-5 lg:ml-4 md:ml-[200px]">
-                {items?.map((data) => (
-                    <Assicard key={data._id} data={data} />
+                {items?.map((data,index) => (
+                    <Assicard key={index} data={data} />
                 ))}
             </div>
             <section className="text-center">
