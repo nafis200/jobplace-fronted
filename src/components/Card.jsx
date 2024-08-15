@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Assicard from './Assicard';
-
+import { IoIosArrowDropdown } from "react-icons/io";
 const Card = () => {
     const [itemPerPages, setItemPerPages] = useState(49);
     const [currentPage, setCurrentPage] = useState(0);
@@ -65,7 +65,20 @@ const Card = () => {
     const Search = () => {
         setRole(str);
     };
-    console.log(items)
+    const sortByPriceAsc = () => {
+        const sortedItems = [...items].sort((a, b) => a.price - b.price);
+        setItems(sortedItems);
+    };
+
+    const sortByPriceDesc = () => {
+        const sortedItems = [...items].sort((a, b) => b.price - a.price);
+        setItems(sortedItems);
+    };
+
+    const sortByNewest = () => {
+        items.sort((a, b) => new Date(b.date) - new Date(a.date));
+    };
+
 
     return (
         <div>
@@ -83,6 +96,34 @@ const Card = () => {
                     Search
                 </button>
             </div>
+            <section className="container mx-auto flex justify-center">
+        <div className="dropdown dropdown-bottom ">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn m-1 bg-blue-400 text-center lg:w-[100px] p-2 text-white mt-5"
+          >
+            <span className=" flex items-center gap-2">
+              Filter by difficulty{" "}
+              <IoIosArrowDropdown className="lg:text-2xl"></IoIosArrowDropdown>{" "}
+            </span>
+          </div>
+          <ul
+            tabIndex={0}
+            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+          >
+             <li>
+                <a onClick={sortByPriceAsc}>Low to high</a>
+            </li>
+            <li>
+                <a onClick={sortByPriceDesc}>High to low</a>
+            </li>
+            <li>
+                <a onClick={sortByNewest}>Neweat date</a>
+            </li>
+          </ul>
+        </div>
+      </section>
             <div className="mt-20 grid lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 lg:space-y-10 space-y-5 lg:ml-4 md:ml-[200px]">
                 {items.map((data) => (
                     <Assicard key={data._id} data={data} />
