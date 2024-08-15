@@ -10,9 +10,9 @@ const Card = () => {
     const [str, setStr] = useState("");
     const [role, setRole] = useState("");
 
-    const [brandname, setBrandname] = useState('Brand Alpha');
-    const [category,setCategory] = useState('Electronics')
-    const [price,setPrice] = useState(10)
+    const [brandname, setBrandname] = useState('');
+    const [category,setCategory] = useState('')
+    const [price,setPrice] = useState()
 
     useEffect(() => {
         fetch('http://localhost:5000/productsCount')
@@ -102,6 +102,17 @@ const Card = () => {
         setPrice(val);
     };
 
+    const deletebrand = ()=>{
+        setBrandname("")
+    }
+
+    const deletecategory = ()=>{
+         setCategory("")
+    }
+    const deleteprice = ()=>{
+         setPrice("")
+    }
+
     return (
         <div>   
              <div className="flex justify-center mx-auto p-4">
@@ -155,7 +166,10 @@ const Card = () => {
                     <option value="Brand Gamma">Brand Gamma</option>
                 </select>
                 {
-                    brandname && <h1>{brandname}</h1>
+                    brandname && <div className='flex space-x-2 mt-5'>
+                     <h1 className='mt-2'>{brandname}</h1>
+                     <button onClick={deletebrand} className='btn w-20'>X</button>
+                    </div>
                 }
             </div>
             <div>
@@ -166,9 +180,11 @@ const Card = () => {
                     <option value="Home Goods">Home Goods</option>
                 </select>
                 {
-                    
-                     category && <h1>{category}</h1>
-                    
+                     
+                     category && <div className='flex space-x-2 mt-5'>
+                     <h1 className='mt-2'>{category}</h1>
+                     <button onClick={deletecategory} className='btn w-20'>X</button>
+                    </div>
                 }
             </div>
             <div>
@@ -180,7 +196,10 @@ const Card = () => {
                     <option value="40">40</option>
                 </select>
                 {
-                    price && <h1>{price}</h1>
+                     price && <div className='flex space-x-2 mt-5'>
+                    <h1 className='mt-2'>{price}</h1>
+                    <button onClick={deleteprice} className='btn w-20'>X</button>
+                   </div>
                 }
             </div>
              </section>
