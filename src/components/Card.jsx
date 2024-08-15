@@ -15,7 +15,7 @@ const Card = () => {
     const [price,setPrice] = useState()
 
     useEffect(() => {
-        fetch('http://localhost:5000/productsCount')
+        fetch('https://finally-deploy.vercel.app/productsCount')
             .then(res => res.json())
             .then(data => {
                 setItemPerPages(data.count);
@@ -27,7 +27,7 @@ const Card = () => {
     }, []);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/products?page=${currentPage}&size=${itemPerPages}`)
+        fetch(`https://finally-deploy.vercel.app/products?page=${currentPage}&size=${itemPerPages}`)
             .then(res => res.json())
             .then(data => setItems(data))
             .catch(error => {
@@ -37,7 +37,7 @@ const Card = () => {
 
     useEffect(() => {
         if (role) {
-            fetch(`http://localhost:5000/search/${role}`)
+            fetch(`https://finally-deploy.vercel.app/search/${role}`)
                 .then(res => res.json())
                 .then(data => setItems(data))
                 .catch(error => {
@@ -113,17 +113,15 @@ const Card = () => {
          setPrice("")
     }
    const serachitem = async()=>{
-    console.log("hellow")
     try {
-        const response = await axios.post('http://localhost:5000/search', {
+        const response = await axios.post('https://finally-deploy.vercel.app/search', {
             brandName:brandname,
             price: price ? parseInt(price) : undefined,
             category:category
         });
-        console.log(response.data)
         setItems(response.data);
     } catch (error) {
-        console.error('Error searching for products', error);
+        
     }
 
    }
@@ -180,6 +178,7 @@ const Card = () => {
                     <option value="Brand Alpha">Brand Alpha</option>
                     <option value="Brand Beta">Brand Beta</option>
                     <option value="Brand Gamma">Brand Gamma</option>
+                    <option value="Brand Delta">Brand Delta</option>
                 </select>
                 {
                     brandname && <div className='flex space-x-2 mt-5'>

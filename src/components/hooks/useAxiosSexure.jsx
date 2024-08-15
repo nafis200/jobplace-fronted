@@ -12,7 +12,6 @@ const useAxiosSexure = () => {
     const {logout} = useAuth()
     axiosSecure.interceptors.request.use(function (config){
         const token = localStorage.getItem('access-token')
-        console.log('request stopped by interceptors',token);
         config.headers.authorization = `bearersers ${token}`
         return config;
    }, function(error){
@@ -24,14 +23,13 @@ const useAxiosSexure = () => {
        return response;
      }, async (error)=> {
        const status = error.response.status 
-       console.log(error.response.data.message)
        if(status === 401 || status === 403){
              await logout()
              .then(res=>{
-                console.log(res)
+             
              })
              .catch(error =>{
-                console.log(error)
+                
              })
              Swal.fire({
                 title: `${error.response.data.message}`,

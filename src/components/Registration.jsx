@@ -58,12 +58,8 @@ const Registration = () => {
           .catch(() => {});
 
           
-
-      
-        console.log(result.user);
       })
       .catch((error) => {
-        console.log(error);
         toast.error("Registration failed");
       });
     reset();

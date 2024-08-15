@@ -17,7 +17,7 @@ const Assicard = ({data}) => {
        <div>
   {
     brandName === 'Product not found' 
-    ? <h1 className='font-bold text-center'>Sorry Product Not found Please search according to product name</h1> 
+    ? <h1 className='font-bold text-center ml-10'>Sorry Product Not found Please search according to product name</h1> 
     : <><div className="card lg:w-96 md:w-96 w-72 bg-base-100 shadow-xl ml-7">
     <Slide direction={'down'}>
     <figure>

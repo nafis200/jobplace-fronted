@@ -1,6 +1,5 @@
 import Card from "./Card";
 import Login from "./Login";
-import SearchBar from "./SearchBar";
 import useAuth from "./useAuth";
 
 
