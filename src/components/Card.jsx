@@ -154,6 +154,9 @@ const Card = () => {
                     <option value="Brand Beta">Brand Beta</option>
                     <option value="Brand Gamma">Brand Gamma</option>
                 </select>
+                {
+                    brandname && <h1>{brandname}</h1>
+                }
             </div>
             <div>
                 <label>Category Name:</label>
@@ -162,6 +165,11 @@ const Card = () => {
                     <option value="Clothing">Clothing</option>
                     <option value="Home Goods">Home Goods</option>
                 </select>
+                {
+                    
+                     category && <h1>{category}</h1>
+                    
+                }
             </div>
             <div>
                 <label>Price:</label>
@@ -171,6 +179,9 @@ const Card = () => {
                     <option value="30">30</option>
                     <option value="40">40</option>
                 </select>
+                {
+                    price && <h1>{price}</h1>
+                }
             </div>
              </section>
             <div className="mt-20 grid lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 lg:space-y-10 space-y-5 lg:ml-4 md:ml-[200px]">
