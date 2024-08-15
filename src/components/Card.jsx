@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Assicard from './Assicard';
 import { IoIosArrowDropdown } from "react-icons/io";
+import Searchfield from './Searchfield';
 const Card = () => {
     const [itemPerPages, setItemPerPages] = useState(49);
     const [currentPage, setCurrentPage] = useState(0);
@@ -8,6 +9,10 @@ const Card = () => {
     const [items, setItems] = useState([]);
     const [str, setStr] = useState("");
     const [role, setRole] = useState("");
+
+    const [brandname, setBrandname] = useState('Brand Alpha');
+    const [category,setCategory] = useState('Electronics')
+    const [price,setPrice] = useState(10)
 
     useEffect(() => {
         fetch('http://localhost:5000/productsCount')
@@ -81,11 +86,25 @@ const Card = () => {
         const sortedItems = [...items].sort((a,b)=>new Date(b.date) - new Date(a.date))
         setItems(sortedItems)
     };
+   
+    const handleBrandChange = (e) => {
+        const val = e.target.value;
+        setBrandname(val);
+    };
 
+    const handlecategory = (e) => {
+        const val = e.target.value;
+        setCategory(val);
+    };
+
+    const handleprice = (e) => {
+        const val = parseInt(e.target.value);
+        setPrice(val);
+    };
 
     return (
-        <div>
-            <div className="flex justify-center mx-auto p-4">
+        <div>   
+             <div className="flex justify-center mx-auto p-4">
                 <input
                     type="text"
                     placeholder="Type here"
@@ -127,8 +146,35 @@ const Card = () => {
           </ul>
         </div>
       </section>
+      <section className='flex justify-around mt-10'>
+             <div>
+                <label>Brand Name:</label>
+                <select className="select select-bordered" value={brandname} onChange={handleBrandChange}>
+                    <option value="Brand Alpha">Brand Alpha</option>
+                    <option value="Brand Beta">Brand Beta</option>
+                    <option value="Brand Gamma">Brand Gamma</option>
+                </select>
+            </div>
+            <div>
+                <label>Category Name:</label>
+                <select className="select select-bordered" value={category} onChange={handlecategory}>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Home Goods">Home Goods</option>
+                </select>
+            </div>
+            <div>
+                <label>Price:</label>
+                <select className="select select-bordered" value={price} onChange={handleprice}>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                </select>
+            </div>
+             </section>
             <div className="mt-20 grid lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 lg:space-y-10 space-y-5 lg:ml-4 md:ml-[200px]">
-                {items.map((data) => (
+                {items?.map((data) => (
                     <Assicard key={data._id} data={data} />
                 ))}
             </div>
